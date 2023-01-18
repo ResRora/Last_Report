@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>登録画面</title>
+</head>
+<body onload="imgload()">
+<div id="content"></div>
+<img id='imgcode'src=''></image>
+<button type='button' onclick='onmyClick3()' value='clicked'>刷新图片</button>
+<tr/>
+<td/>
+<br/>
+<input id='codetext' type='text'></input>
+<button id='refbtn' type='button' onclick='oncheckcode()' value=''>提出</button>
+<script type="text/javascript">
+  gurl=''
+  gvalue=0
+  function oncheckcode()
+  {
+    value = document.getElementById('codetext').value
+    //alert(value)
+    //alert(gvalue)
+    if(value != gvalue)
+    {
+      alert("エラー")
+      //window.close()
+    }
+    else
+    {
+      alert("正解")
+      window.location.href= "InDex/index.html";
+    }
+  }
+
+  function imgload()
+  {
+    onmyClick3()
+  }
+  var myHeaders = new Headers();
+  //myHeaders.append("x-rapidapi-key", "XxXxXxXxXxXxXxXxXxXxXxXx");
+  //myHeaders.append("x-rapidapi-host", "v3.football.api-sports.io");
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  myurl='https://www.mxnzp.com/api/verifycode/code?len=5&type=0&app_id=omtwnnt8fprrjgyv&app_secret=MVNYSHM4MklmYVl4amxOOWlzbWc5Zz09'
+  function onmyClick1()
+  {
+    alert('Enter')
+    fetch(myurl, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .then()
+            .catch(error => console.log('error', error));
+  }
+
+  function logjsonitem(res)
+  {
+    console.log(res.code)
+    console.log(res.msg)
+    console.log(res.data.verifyCode)
+    console.log(res.data.verifyCodeImgUrl)
+
+    gurl = res.data.verifyCodeImgUrl
+    gvalue = res.data.verifyCode
+
+    imgid = document.getElementById("imgcode")
+    imgid.src = res.data.verifyCodeImgUrl
+
+    return 0
+  }
+
+  function onmyClick3()
+  {
+
+    //alert('Enter')
+    fetch(myurl, requestOptions)
+            .then(response => response.json())
+            .then(res => logjsonitem(res))
+            .catch(error => console.log('error', error));
+
+  }
+</script>
+</body>
+</html>
+
+
